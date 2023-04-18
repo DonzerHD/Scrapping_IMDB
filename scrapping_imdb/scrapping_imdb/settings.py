@@ -60,11 +60,6 @@ ROBOTSTXT_OBEY = True
 #    "scrapy.extensions.telnet.TelnetConsole": None,
 #}
 
-# Configure item pipelines
-# See https://docs.scrapy.org/en/latest/topics/item-pipeline.html
-#ITEM_PIPELINES = {
-#    "scrapping_imdb.pipelines.ScrappingImdbPipeline": 300,
-#}
 
 # Enable and configure the AutoThrottle extension (disabled by default)
 # See https://docs.scrapy.org/en/latest/topics/autothrottle.html
@@ -98,3 +93,5 @@ CONCURRENT_REQUESTS_PER_DOMAIN = 2
 COOKIES_ENABLED = False
 RETRY_TIMES = 3
 HTTPCACHE_ENABLED = True 
+
+ITEM_PIPELINES = {'scrapping_imdb.pipelines.MongoDBMoviePipeline': 300}
