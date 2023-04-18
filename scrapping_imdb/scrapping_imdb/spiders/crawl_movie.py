@@ -6,15 +6,14 @@ import logging
 from termcolor import colored
 from ..utils import time_to_minutes
 
+
 class IMDbTop250Movie(CrawlSpider):
+    """
+    Spider pour récupérer les informations des 250 meilleurs films sur IMDb.
+    """
     name = 'top_movies'
     allowed_domains = ['imdb.com']
-    start_urls = ['https://www.imdb.com/chart/top/']
     movie_count = 0
-
-    custom_settings = {
-        'USER_AGENT': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/88.0.4324.192 Safari/537.36',
-    }
 
     rules = (
         Rule(LinkExtractor(restrict_css=".titleColumn a"), callback="parse_movie"),
@@ -40,8 +39,7 @@ class IMDbTop250Movie(CrawlSpider):
         country = response.css('li.ipc-metadata-list__item[data-testid="title-details-origin"] a.ipc-metadata-list-item__list-content-item--link::text').getall()
         language = response.css('li.ipc-metadata-list__item[data-testid="title-details-languages"] a.ipc-metadata-list-item__list-content-item--link::text').getall()
         original_title = response.css('li.ipc-metadata-list__item:contains("Also known as") span.ipc-metadata-list-item__list-content-item::text').getall()
-        
-        # Incrémentation du compteur et affichage d'un message d'information coloré
+
         self.movie_count += 1
         log_message = colored(f"Film {self.movie_count}: {title}", 'cyan')
         logging.info(log_message)
@@ -58,5 +56,7 @@ class IMDbTop250Movie(CrawlSpider):
         movie_item['country'] = country
         movie_item['language'] = language
         movie_item['original_title'] = original_title
+        movie_item['original_title'] = original_title
 
+        # Retourne l'objet MovieItem pour être traité par les autres composants de Scrapy
         yield movie_item
