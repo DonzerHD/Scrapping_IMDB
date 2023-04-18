@@ -5,7 +5,7 @@ from ..items import SerieItem
 
 
 class CrawlSeriesSpider(CrawlSpider):
-    name = "crawl_series"
+    name = "top_series"
     allowed_domains = ["imdb.com"]
     start_urls = ["https://www.imdb.com/chart/toptv/?ref_=nv_tvv_250"]
     user_agent = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/76.0.3809.100 Safari/537.36'
