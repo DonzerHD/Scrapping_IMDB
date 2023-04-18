@@ -2,6 +2,8 @@ import scrapy
 from scrapy.linkextractors import LinkExtractor
 from scrapy.spiders import CrawlSpider, Rule
 from ..items import SerieItem
+from termcolor import colored
+import logging
 
 
 class CrawlSeriesSpider(CrawlSpider):
@@ -9,6 +11,7 @@ class CrawlSeriesSpider(CrawlSpider):
     allowed_domains = ["imdb.com"]
     start_urls = ["https://www.imdb.com/chart/toptv/?ref_=nv_tvv_250"]
     user_agent = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/76.0.3809.100 Safari/537.36'
+    movie_count = 0
     
     def start_requests(self):
         yield scrapy.Request(url='https://www.imdb.com/chart/toptv/?ref_=nv_tvv_250', headers={
@@ -28,6 +31,11 @@ class CrawlSeriesSpider(CrawlSpider):
         # actor = response.css(".ipc-metadata-list-item__list-content-item--link::text").getall()       
         public = response.css("ul.ipc-inline-list.ipc-inline-list--show-dividers.sc-afe43def-4.kdXikI.baseAlt li:nth-child(3) a::text").get()
         # country = response.css("a.ipc-metadata-list-item__list-content-item.ipc-metadata-list-item__list-content-item--link::text").getall()
+        
+        self.movie_count += 1
+        log_message = colored(f"Séries {self.movie_count}: {title}", 'cyan')
+        logging.info(log_message)
+
 
         
         serie_item = SerieItem()

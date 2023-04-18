@@ -1,2 +1,6 @@
-scrappy
+scrapy
 termcolor
+pymongo
+python-dotenv
+ipykernel
+streamlit
