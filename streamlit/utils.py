@@ -4,11 +4,11 @@ from dotenv import load_dotenv
 import requests
 import re
 
-load_dotenv()
-ATLAS_KEY = os.getenv("ATLAS_KEY")
+# load_dotenv()
+# ATLAS_KEY = os.getenv("ATLAS_KEY")
 
 def get_db_connection():
-    client = pymongo.MongoClient(ATLAS_KEY)
+    client = pymongo.MongoClient("mongodb+srv://thomas59:QcXFzMOjlffoghSd@cluster0.kqe2bp7.mongodb.net/test")
     db = client["imdb_top"]
     collection = db["top_movies"]
     return collection

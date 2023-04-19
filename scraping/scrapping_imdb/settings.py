@@ -94,4 +94,4 @@ COOKIES_ENABLED = False
 RETRY_TIMES = 3
 HTTPCACHE_ENABLED = True 
 
-# ITEM_PIPELINES = {'scrapping_imdb.pipelines.MongoDB_IMDB_TopPipeline': 300}
+ITEM_PIPELINES = {'scrapping_imdb.pipelines.MongoDB_IMDB_TopPipeline': 300}
