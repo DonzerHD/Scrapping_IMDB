@@ -39,6 +39,8 @@ class MovieItem(scrapy.Item):
     language = scrapy.Field()
     original_title = scrapy.Field()
     link_image = scrapy.Field()
+    trailer_page_url = scrapy.Field()
+    trailer_video = scrapy.Field()
 
 
 class SerieItem(scrapy.Item):

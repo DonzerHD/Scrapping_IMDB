@@ -1,3 +1,4 @@
+import json
 from scrapy.linkextractors import LinkExtractor
 from scrapy.spiders import CrawlSpider, Rule
 from ..items import MovieItem
@@ -14,6 +15,7 @@ class IMDbTop250Movie(CrawlSpider):
     name = 'top_movies'
     allowed_domains = ['imdb.com']
     movie_count = 0
+    film_counter = 0
 
     rules = (
         Rule(LinkExtractor(restrict_css=".titleColumn a"), callback="parse_movie"),
@@ -40,10 +42,12 @@ class IMDbTop250Movie(CrawlSpider):
         language = response.css('li.ipc-metadata-list__item[data-testid="title-details-languages"] a.ipc-metadata-list-item__list-content-item--link::text').getall()
         original_title = response.css('li.ipc-metadata-list__item:contains("Also known as") span.ipc-metadata-list-item__list-content-item::text').getall()
         link_image = response.css('div.ipc-media img.ipc-image::attr(src)').get()
+        trailer_page_url = response.css('div.ipc-slate a.ipc-lockup-overlay::attr(href)').get()
             
         self.movie_count += 1
         log_message = colored(f"Film {self.movie_count}: {title}", 'cyan')
         logging.info(log_message)
+        logging.info(f"url : {response.url}")
 
         movie_item = MovieItem()
         movie_item['title'] = title
@@ -58,7 +62,29 @@ class IMDbTop250Movie(CrawlSpider):
         movie_item['language'] = language
         movie_item['original_title'] = original_title
         movie_item['link_image'] = link_image
+        movie_item['trailer_page_url'] = "https://www.imdb.com" + trailer_page_url
         
+        # Ajoutez 'yield' ici
+        yield scrapy.Request(url=movie_item['trailer_page_url'], callback=self.parse_trailer, meta={'movie_item': movie_item})
+        return
+        
+    def parse_trailer(self, response):
+        movie_item = response.meta['movie_item']
+        next_data_script = response.css('script[id="__NEXT_DATA__"]::text').get()
+        next_data_json = json.loads(next_data_script)
 
-        # Retourne l'objet MovieItem pour être traité par les autres composants de Scrapy
-        yield movie_item
+        playback_urls = next_data_json['props']['pageProps']['videoPlaybackData']['video']['playbackURLs']
+        
+        video_480p_url = None
+        for playback_url in playback_urls:
+            if playback_url['displayName']['value'] == '480p':
+                video_480p_url = playback_url['url'].replace('\\u0026', '&')
+                break
+
+        if video_480p_url:
+            logging.info(f"Trailer video URL: {video_480p_url}")
+            movie_item['trailer_video'] = video_480p_url
+            yield movie_item
+        else:
+            logging.error("Couldn't find 480p video URL")
+
