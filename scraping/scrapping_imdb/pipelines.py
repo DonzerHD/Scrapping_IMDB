@@ -20,7 +20,7 @@ class ScrappingImdbPipeline:
 class MongoDB_IMDB_TopPipeline:
     def open_spider(self, spider):
         self.client = MongoClient(ATLAS_KEY)
-        self.db = self.client["movies_db"]
+        self.db = self.client["imdb_top"]
         self.movies_collection = self.db["top_movies"]
         self.series_collection = self.db["top_series"]
 

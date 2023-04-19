@@ -38,6 +38,7 @@ class MovieItem(scrapy.Item):
     country = scrapy.Field()
     language = scrapy.Field()
     original_title = scrapy.Field()
+    link_image = scrapy.Field()
 
 
 class SerieItem(scrapy.Item):

@@ -39,7 +39,8 @@ class IMDbTop250Movie(CrawlSpider):
         country = response.css('li.ipc-metadata-list__item[data-testid="title-details-origin"] a.ipc-metadata-list-item__list-content-item--link::text').getall()
         language = response.css('li.ipc-metadata-list__item[data-testid="title-details-languages"] a.ipc-metadata-list-item__list-content-item--link::text').getall()
         original_title = response.css('li.ipc-metadata-list__item:contains("Also known as") span.ipc-metadata-list-item__list-content-item::text').getall()
-
+        link_image = response.css('div.ipc-media img.ipc-image::attr(src)').get()
+            
         self.movie_count += 1
         log_message = colored(f"Film {self.movie_count}: {title}", 'cyan')
         logging.info(log_message)
@@ -56,7 +57,8 @@ class IMDbTop250Movie(CrawlSpider):
         movie_item['country'] = country
         movie_item['language'] = language
         movie_item['original_title'] = original_title
-        movie_item['original_title'] = original_title
+        movie_item['link_image'] = link_image
+        
 
         # Retourne l'objet MovieItem pour être traité par les autres composants de Scrapy
         yield movie_item
