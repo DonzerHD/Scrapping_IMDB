@@ -2,6 +2,11 @@ import streamlit as st
 import pandas as pd
 
 def display_movies(movies):
+    """
+    Affiche les informations des films dans l'application Streamlit.
+    
+    :param movies: Un itérable d'objets films (généralement des dictionnaires contenant des informations sur les films)
+    """
     for movie in movies:
         col1, col2 = st.columns([1, 5])
 
@@ -34,6 +39,18 @@ def display_movies(movies):
         st.markdown("---")
 
 def search_movies(collection, name, genres, note, acteurs, time, sort_order, limit=20):
+    """
+    Recherche des films en fonction des critères fournis.
+    
+    :param collection: La collection MongoDB où les données de films sont stockées
+    :param name: Une chaîne de caractères pour rechercher un film par titre
+    :param genres: Une liste de genres pour filtrer les films
+    :param note: Une note minimale pour filtrer les films
+    :param acteurs: Une liste d'acteurs pour filtrer les films qui les incluent
+    :param time: Une durée maximale en minutes pour filtrer les films
+    :param sort_order: Un ordre de tri ("Descending" ou "Ascending") pour trier les films en fonction de leur note
+    :param limit: Un nombre entier pour limiter le nombre de résultats (par défaut à 20)
+    """
     query = {}
     
     # Recherche par titre
@@ -47,13 +64,15 @@ def search_movies(collection, name, genres, note, acteurs, time, sort_order, lim
     # Recherche par note
     if note:
         query["score"] = {"$in": [note]}
-
+        
+    # Recherche par acteur
     if acteurs:
         actors_query = []
         for actor in acteurs:
             actors_query.append({"actor": {"$regex": f".*{actor}.*", "$options": "i"}})
         query["$and"] = actors_query
-            
+        
+    # Recherche par durée  
     if time:
         query["time"] = {"$lte": int(time)}
 
@@ -66,7 +85,8 @@ def search_movies(collection, name, genres, note, acteurs, time, sort_order, lim
     # Recherche dans la collection
     movies = collection.find(query).sort(sort).limit(limit)
     count = collection.count_documents(query)
-
+    
+    # Afficher les résultats
     if count > 0:
         display_movies(movies)
     else:

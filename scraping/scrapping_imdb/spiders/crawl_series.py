@@ -8,6 +8,9 @@ import logging
 
 
 class CrawlSeriesSpider(CrawlSpider):
+    """
+    Spider pour récupérer les informations des 250 meilleures séries sur IMDb.
+    """
     name = "top_series"
     allowed_domains = ["imdb.com"]
     start_urls = ["https://www.imdb.com/chart/toptv/?ref_=nv_tvv_250"]
@@ -19,36 +22,40 @@ class CrawlSeriesSpider(CrawlSpider):
             'User-Agent': self.user_agent
         })
 
-    # définit une règle pour l'extraction des liens de pages web à partir desquelles on va extraire les données.
+    # Définit une règle pour l'extraction des liens de pages web à partir desquelles on va extraire les données.
     rules = (Rule(LinkExtractor(restrict_css=".titleColumn > a"), callback="parse_series"),)
 
     def parse_series(self, response):
+        """
+        Fonction qui extrait les informations des séries à partir de la réponse HTML.
+
+        Args:
+            response (scrapy.http.Response): La réponse HTML obtenue après avoir demandé la page web.
+
+        Yields:
+            scrapy.Item: Un objet SerieItem contenant les informations extraites.
+        """
+        # Extraire les données de la série à partir de la réponse HTML
         title = response.css("h1[data-testid='hero__pageTitle'] span::text").get().strip()
         score = response.css("span.sc-bde20123-1.iZlgcd::text").get()
         genre = response.css("a.ipc-chip--on-baseAlt span.ipc-chip__text::text").getall()
         year = response.css("ul.ipc-inline-list.ipc-inline-list--show-dividers.sc-afe43def-4.kdXikI.baseAlt a.ipc-link.ipc-link--baseAlt.ipc-link--inherit-color::text").get()
-        # time = response.css('ul.sc-afe43def-4 li.ipc-inline-list__item::text').get()
-        # time = time_to_minutes(time)        
         description = response.css("span.sc-5f699a2-2.cxqNYC::text").get()
         actor = list(set(response.css('li.ipc-metadata-list__item:contains("Stars") li.ipc-inline-list__item a.ipc-metadata-list-item__list-content-item--link::text').getall()))       
         public = response.css("ul.ipc-inline-list.ipc-inline-list--show-dividers.sc-afe43def-4.kdXikI.baseAlt li:nth-child(3) a::text").get()
-        # country = response.css("a.ipc-metadata-list-item__list-content-item.ipc-metadata-list-item__list-content-item--link::text").getall()
         
         self.series_count += 1
         log_message = colored(f"Séries {self.series_count}: {title}", 'cyan')
         logging.info(log_message)
 
-
-        
+        # Créer un objet SerieItem et remplir ses champs avec les données extraites
         serie_item = SerieItem()
         serie_item['title'] = title
         serie_item['score'] = score
         serie_item['genre'] = genre
         serie_item['year'] = year
-        # serie_item['time'] = time
         serie_item['description'] = description
         serie_item['actor'] = actor
         serie_item['public'] = public
-        # serie_item['country'] = country
-
+        
         yield serie_item

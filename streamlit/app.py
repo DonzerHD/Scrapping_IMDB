@@ -2,7 +2,11 @@ import streamlit as st
 from components import search_movies
 from utils import get_db_connection, get_unique_genres, get_unique_scores, get_unique_actors
 
+
 def main():
+    """
+    Application Streamlit pour rechercher des films en fonction de différents critères et filtres.
+    """
     st.set_page_config(page_title="Movie App", page_icon=":movie_camera:", layout="wide")
     collection = get_db_connection()
 
@@ -34,6 +38,7 @@ def main():
 
     # Lancer la recherche avec les filtres
     search_movies(collection, name, selected_genres, selected_scores, selected_actors, time_movie, sort_order)
+
 
 if __name__ == "__main__":
     main()
