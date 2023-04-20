@@ -46,7 +46,7 @@ class MovieItem(scrapy.Item):
 class SerieItem(scrapy.Item):
     title = scrapy.Field()
     score = scrapy.Field()
-    # genre = scrapy.Field()
+    genre = scrapy.Field()
     year = scrapy.Field()
     # time = scrapy.Field()
     description = scrapy.Field()
