@@ -32,6 +32,9 @@ Créer bien un fichier `.env` dans le dossier `streamlit` et à la racine du pro
 - Voila quoi mettre dans le fichier `.env` :
 ```ATLAS_KEY = "votre clé d'accès à la base de données MongoDB"```
 
+## Pipeline
+Decommantez la ligne 97 dans le fichier `scraping/scrapping_imdb/settings.py` pour lancer le pipeline et enregistrer les données dans la base de données MongoDB.
+
 ## Streamlit
 Pour lancer l'application, il faut se placer dans le dossier `streamlit` et lancer la commande suivante : `streamlit run app.py`
 
