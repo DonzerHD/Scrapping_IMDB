@@ -21,8 +21,8 @@ Le projet est organisé en plusieurs dossiers :
 ## Scrapping 
 
 Pour lancer le scrapping, il faut se placer dans le dossier `scraping` et lancer les commandes suivantes :
- - `scrapy crawl top_movies -o movies.csv` pour extraire les données des films
- - `scrapy crawl top_series -o series.csv` pour extraire les données des séries
+ - `scrapy crawl top_movies -o ../data/top_movies.csv` pour extraire les données des films
+ - `scrapy crawl top_series -o ../data/top_series.csv` pour extraire les données des séries
 
 Attention des fichiers csv sont déjà présents dans le dossier `data` supprimer les avant de lancer le scrapping.
 
