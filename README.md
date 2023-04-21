@@ -56,7 +56,7 @@ Pour lancer l'application, il faut se placer dans le dossier `streamlit` et lanc
 - Pour le push sur Docker Hub, il faut se connecter à votre compte Docker Hub.
 - Créer un repository sur Docker Hub et copier le nom de l'image .
 - Puis lancer la commande suivante : `docker login` et rentrer votre nom d'utilisateur et mot de passe.
-- Ensuite lancer la commande suivante : `docker tag nom_de_l'image nom_d'utilisateur/nom_de_l'image`
+- Ensuite lancer la commande suivante : `docker tag nom_de_l'image nom_d'utilisateur/nom_de_l'image` . **Pour le premier nom de l'image, il faut mettre le nom de l'image que vous avez donné lors du build de l'image Docker et pour le deuxième nom de l'image, il faut mettre le nom d'utilisateur/nom_de_l'image que vous avez donné lors de la création du repository sur Docker Hub.**
 - Pour finir lancer la commande suivante : `docker push nom_d'utilisateur/nom_de_l'image`
 
 ## Utilisation de Microsoft Azure
