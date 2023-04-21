@@ -3,7 +3,7 @@ Ce projet est une application de recherche de films et de séries construite ave
 
 ### Remarque :
 - **Pour l'instant, seuls les 250 meilleurs films et séries ont été récupérés par scraping et seuls les films correspondants sont disponibles dans l'application Streamlit.**
-- **Les liens vers les bandes-annonces fournies peuvent ne pas fonctionner en raison des modifications régulières apportées par IMDb**
+- **Les liens vers les bandes-annonces fournies peuvent ne pas fonctionner en raison des modifications régulières apportées par IMDb .**
 
 ## Cette application est déployée avec Streamlit Community Cloud pour y accéder cliquez sur le badge ci-dessous :
 [![Streamlit App](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://donzerhd-scrapping-imdb-streamlitapp-60xthx.streamlit.app/)
