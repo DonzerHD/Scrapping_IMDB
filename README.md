@@ -31,14 +31,19 @@ Pour lancer le scrapping, il faut se placer dans le dossier `scraping` et lancer
 
 Attention des fichiers csv sont déjà présents dans le dossier `data` supprimer les avant de lancer le scrapping.
 
-## MongoDB
+## MongoDB et le fichier .env
 
-Créer bien un fichier `.env` dans le dossier `streamlit` et à la racine du projet pour y mettre les informations de connexion à la base de données MongoDB .
+- Retrouver comment utiliser MongoDB Atlas [ici](https://docs.atlas.mongodb.com/getting-started/) .
+- Créer bien un fichier `.env` dans le dossier `streamlit` et à la racine du projet pour y mettre les informations de connexion à la base de données MongoDB Atlas.
 - Voila quoi mettre dans le fichier `.env` :
 ```ATLAS_KEY = "votre clé d'accès à la base de données MongoDB"```
 
-## Pipeline
-Décommenter la ligne 97 dans le fichier `scraping/scrapping_imdb/settings.py` pour lancer le pipeline et enregistrer les données dans la base de données MongoDB.
+## Pipeline et Stockage des données
+- Décommenter la ligne 97 dans le fichier `scraping/scrapping_imdb/settings.py` pour que les données soient envoyées dans la base de données MongoDB.
+- Ensuite pour lancer la pipeline de scraping du site IMDb, vous devez d'abord vous assurer que vous êtes dans le dossier scraping à l'aide de la commande `cd scraping` dans votre terminal ou invite de commande. Ensuite, vous pouvez exécuter l'une des commandes suivantes pour scraper les données :
+- Pour scraper les meilleurs films IMDb : `scrapy crawl top_movies`
+- Pour scraper les meilleures séries TV IMDb : `scrapy crawl top_series`
+- Ces commandes exécutent le code dans ``scraping/scrapping_imdb/spiders/crawl_movie.py`` ou ``scraping/scrapping_imdb/spiders/crawl_series.py``, qui contient la logique de scraping du site IMDb, ainsi que la pipeline de stockage des données dans MongoDB spécifiée dans ``scraping/scrapping_imdb/settings.py``.
 
 ## Streamlit
 Pour lancer l'application, il faut se placer dans le dossier `streamlit` et lancer la commande suivante : `streamlit run app.py`
