@@ -5,7 +5,7 @@ FROM python:3.8-slim
 WORKDIR /app
 
 # Copier les fichiers requirements.txt dans le conteneur
-COPY requirements.txt .env ./
+COPY requirements.txt ./
 
 # Installer les dépendances
 RUN pip install -r requirements.txt
