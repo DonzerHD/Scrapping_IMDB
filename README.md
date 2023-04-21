@@ -54,6 +54,7 @@ Pour lancer l'application, il faut se placer dans le dossier `streamlit` et lanc
 - Pour lancer l'application, il faut lancer un container avec la commande suivante : `docker run -p port:port nom_de_l'image`
 - Ensuite récupérer l'ip dans la console et coller l'ip dans votre navigateur avec le port.
 - Pour le push sur Docker Hub, il faut se connecter à votre compte Docker Hub.
+- Créer un repository sur Docker Hub et copier le nom de l'image .
 - Puis lancer la commande suivante : `docker login` et rentrer votre nom d'utilisateur et mot de passe.
 - Ensuite lancer la commande suivante : `docker tag nom_de_l'image nom_d'utilisateur/nom_de_l'image`
 - Pour finir lancer la commande suivante : `docker push nom_d'utilisateur/nom_de_l'image`
