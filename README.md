@@ -71,7 +71,7 @@ Voici les étapes pour utiliser Microsoft Azure :
 
 ### **Accéder à l'application déployée sur Microsoft Azure**
 - Dans la section "Container Instances", cliquez sur le conteneur que vous venez de créer.
-- Prendre l'IP_ADDRESS et le PORT et coller l'IP_ADDRESS dans votre navigateur avec le PORT que vous avez mis dans le fichier Dockerfile.
+- Copier l'IP_ADDRESS et le PORT et coller l'IP_ADDRESS dans votre navigateur avec le PORT que vous avez mis dans le fichier Dockerfile.
 
 ## License
 Ce projet est sous licence MIT - voir [LICENSE](LICENSE) pour plus de détails.
